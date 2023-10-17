@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medici Ambulatori</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Tipologia</th>
+            <th>Ambito</th>
+            <th>Codice Regionale</th>
+            <th>Scelte Disponibili</th>
+            <th>Orario</th>
+            <th>Telefono</th>
+            <th>Segreteria</th>
+            <th>Comune</th>
+            <th>Ubicazione</th>
+            <th>Principale</th>
+        </tr>
+    </thead>
+    <tbody id="mediciTableBody"></tbody>
+</table>
+
+<script>
+    // Fetch data from the PHP page using jQuery
+    $.getJSON('https://servizi.estar.toscana.it/adiba/ambulatori.php', function(data) {
+        // Iterate through medici and ambulatori to create table rows
+        data.medici.forEach(function(medico) {
+            medico.ambulatori.forEach(function(ambulatorio) {
+                // Append a new row to the table
+                $('#mediciTableBody').append(`
+                    <tr>
+                        <td>${medico.nome}</td>
+                        <td>${medico.cognome}</td>
+                        <td>${medico.tipologia}</td>
+                        <td>${medico.ambito}</td>
+                        <td>${medico.codice_regionale}</td>
+                        <td>${medico.scelte_disponibili}</td>
+                        <td>${ambulatorio.orario}</td>
+                        <td>${ambulatorio.telefono}</td>
+                        <td>${ambulatorio.segreteria}</td>
+                        <td>${ambulatorio.comune}</td>
+                        <td>${ambulatorio.ubicazione}</td>
+                        <td>${ambulatorio.principale}</td>
+                    </tr>
+                `);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
